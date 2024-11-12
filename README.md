@@ -47,3 +47,23 @@ This solution implements a concurrent file server that spawns a new thread for e
 The remote calculator allows the client to send two integers and an arithmetic operation (+, -, *, /, %) to the server. The server performs the operation and sends back the result.
 
 
+## 🤝 Contributing
+
+Contributions are welcome! Please fork this repository and submit a pull request.
+
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Commit your changes
+5. Push to your forked repository
+6. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## 👤 Author
+
+Your Name  
+[Your LinkedIn](https://www.linkedin.com/in/azrul-amaline) | [Your GitHub](https://github.com/Azrul16)  
+Email: azrul.amaline16@gmail.com
