@@ -65,5 +65,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## 👤 Author
 
 Your Name  
-[Your LinkedIn](https://www.linkedin.com/in/azrul-amaline) | [Your GitHub](https://github.com/Azrul16)  
-Email: azrul.amaline16@gmail.com
+## 👤 Author
+
+#Azrul Amaline
+[![LinkedIn](https://upload.wikimedia.org/wikipedia/commons/0/02/LinkedIn_Logo.svg)](https://www.linkedin.com/in/azrul-amaline) [Your LinkedIn](https://www.linkedin.com/in/azrul-amaline) | [![GitHub](https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg)](https://github.com/Azrul16) [Your GitHub](https://github.com/Azrul16)  
+📧 Email: [azrul.amaline16@gmail.com](mailto:azrul.amaline16@gmail.com)
