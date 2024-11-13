@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #chatbox { height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
+        #message { width: calc(100% - 22px); padding: 10px; }
+        button { padding: 10px; cursor: pointer; }
+        form { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Chat</h2>
+    <div id="chatbox"></div>
+    <input id="message" type="text" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" />
+        <button type="button" onclick="uploadFile()">Upload File</button>
+    </form>
+
+    <script>
+        const socket = io();
+
+        socket.on('message', function(msg){
+            const chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += `<p>${msg}</p>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+
+        socket.on('file_uploaded', function(url){
+            const chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += `<p>File uploaded: <a href="${url}" target="_blank">${url}</a></p>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            socket.send(message);
+            document.getElementById('message').value = '';
+        }
+
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+        }
+    </script>
+</body>
+</html>
