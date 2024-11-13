@@ -2,19 +2,6 @@
 
 This repository contains implementations of various network programming problems using Python's socket library. The solutions cover different aspects of client-server communication, including file transfer, concurrency, and remote computation.
 
-## 📋 Table of Contents
-- [Introduction](#introduction)
-- [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Problem Descriptions](#problem-descriptions)
-- [Setup Instructions](#setup-instructions)
-- [Installation Requirements](#installation-requirements)
-- [How to Run](#how-to-run)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [License](#license)
-- [Author](#author)
-
 ## 📝 Introduction
 
 This project demonstrates the use of Python for creating network applications using sockets. The problems involve:
