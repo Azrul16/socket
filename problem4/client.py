@@ -1,44 +1,59 @@
 import socket
-import os
+import sys
 
-def main():
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    server_address = ('localhost', 65432)
-
-    file_path = input("Enter the path of the file you want to download: ")
-    client_socket.sendto(file_path.encode('utf-8'), server_address)
-
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    temp_file = os.path.join(current_directory, 'downloaded_media.mp4')
+def udp_client(server_address, port):
+    # Create a UDP socket
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
-    received_any_data = False
-    with open(temp_file, 'wb') as file:
+    # Send request to the server to start streaming
+    message = b'Start streaming'
+    sock.sendto(message, (server_address, port))
+    
+    # File to save received data
+    output_file = 'received_file.mp4'  # File to save the received data
+
+    print(f"Receiving data from server {server_address}:{port}...")
+    
+    # Receive the file size first
+    data, _ = sock.recvfrom(1024)
+    expected_file_size = int(data.decode())
+    print(f"Expected file size: {expected_file_size} bytes")
+    
+    # Track total bytes received
+    total_bytes_received = 0
+    playback_started = False
+
+    # Open file to write received data
+    with open(output_file, 'wb') as f:
         while True:
-            data, _ = client_socket.recvfrom(2048)
-            if data.startswith(b"ERROR"):
-                print(data.decode('utf-8'))
-                break
-            if data == b"END":
-                break
-            if data:
-                file.write(data)
-                received_any_data = True
-            else:
+            data, _ = sock.recvfrom(2048)  # Receive data from the server
+            
+            if data == b"EOF":
+                print("Received EOF message. Transmission complete.")
                 break
 
-    if received_any_data:
-        print(f"File downloaded to {temp_file}")
-        if os.path.exists(temp_file):
-            print(f"File size: {os.path.getsize(temp_file)} bytes")
-            # Attempt to open the video file using the default media player
-            try:
-                os.system(f"start {temp_file}")
-            except Exception as e:
-                print(f"Error opening file: {e}")
-        else:
-            print("File download failed.")
-    else:
-        print("No data received from server.")
+            # Write the received chunk to file and update the counter
+            f.write(data)
+            total_bytes_received += len(data)
+            print(f"Received {len(data)} bytes, total received: {total_bytes_received} bytes")
 
-if __name__ == '__main__':
-    main()
+            # Start playback once 50 KB is received (optional)
+            if total_bytes_received >= 50000 and not playback_started:
+                playback_started = True
+                print("Enough data received to start playback.")
+                # Here, you would typically launch a media player, e.g.:
+                # os.system(f"vlc {output_file} &")
+
+            # Check if we have received the full file
+            if total_bytes_received >= expected_file_size:
+                print("Full file received successfully.")
+                break
+
+    sock.close()
+    print("Client socket closed. Exiting client.")
+    sys.exit()  # Terminate the client program after receiving
+
+# Usage
+server_address = 'localhost'
+port = 10000
+udp_client(server_address, port)
