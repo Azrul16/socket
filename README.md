@@ -4,7 +4,7 @@ This repository contains implementations of various network programming problems
 
 ## 📋 Table of Contents
 
-- [Introduction](## 🧩 Problem Descriptions)
+- [Introduction](#introduction)
 - [Technologies Used](#technologies-used)
 - [Project Structure](#project-structure)
 - [Problem Descriptions](#problem-descriptions)
