@@ -34,5 +34,6 @@ def stream_video(video_path, host='0.0.0.0', port=5000):
         print("Server shut down.")
 
 if __name__ == "__main__":
-    video_path = "D:/Github\Video-Streaming-using-RTP-RTSP-main/Video-Streaming-using-RTP-RTSP-main/Codes/file.mp4"
+    #video_path = "D:/Github\Video-Streaming-using-RTP-RTSP-main/Video-Streaming-using-RTP-RTSP-main/Codes/file.mp4"
+    video_path = "sample.mp4"
     stream_video(video_path)
